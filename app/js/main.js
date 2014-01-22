@@ -3,12 +3,11 @@
 var mainApp = angular.module('mainApp', ['firebase']);
 
 function MainCtrl($scope, $firebase) {
-  var url = 'https://ecoologic-todos.firebaseio.com/people';
-  var peopleRef = new Firebase(url);
-  $scope.people = $firebase(peopleRef);
+  var todosRef = new Firebase('https://ecoologic-todos.firebaseio.com/simple-todos');
+  $scope.todos = $firebase(todosRef);
 
-  $scope.addPerson = function () {
-    $scope.people.$add($scope.newPerson);
-    $scope.newPerson = '';
+  $scope.addTodo = function () {
+    $scope.todos.$add($scope.newTodo);
+    $scope.newTodo = '';
   };
 };

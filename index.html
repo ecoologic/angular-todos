@@ -16,13 +16,13 @@
 
   <script src='app/js/main.js' type='text/javascript'></script>
 </head>
-<body ng-app='mainApp'>
-  <div class='container' ng-controller='MainCtrl'>
-    <ul ng-repeat='person in people'>
-      <li>{{person}}</li>
+<body ng-app='mainApp' ng-controller='MainCtrl'>
+  <div class='container'>
+    <ul ng-repeat='todo in todos'>
+      <li>{{todo}}</li>
     </ul>
-    <input type='text' ng-model='newPerson' autofocus placeholder='Person Name'/>
-    <button type='submit' ng-click='addPerson()' class='btn btn-primary'>Add New Person</button>
+    <input type='text' ng-model='newTodo' autofocus placeholder='Description'/>
+    <button type='submit' ng-click='addTodo()' class='btn btn-primary'>Add ToDo</button>
   </div>
 </body>
 </html>
