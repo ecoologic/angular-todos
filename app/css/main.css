@@ -1,5 +1,5 @@
 
-.todos .completed-true {
+.completed-true label {
   text-decoration: line-through;
   color: gray;
 }

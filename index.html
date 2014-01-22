@@ -17,14 +17,20 @@
   <link href='app/css/main.css' rel='stylesheet'/>
   <script src='app/js/main.js' type='text/javascript'></script>
 </head>
-<body ng-app='mainApp' ng-controller='MainCtrl' class='todos'>
+<body ng-app='mainApp' ng-controller='TodosCtrl'>
   <div class='container'>
-    <ul ng-repeat='todo in todos'>
-      <li class='completed-{{todo.completed}}'>{{todo.title}} ({{todo.points}}pts)</li>
+    <ul ng-repeat='(id, todo) in todos'>
+      <li class='completed-{{todo.completed}}'>
+        <label>
+          <input type='checkbox' ng-checked="todo.completed">
+          {{todo.title}} ({{todo.points}}pts)
+        </label>
+        </input>
+      </li>
     </ul>
     <input type='text' ng-model='newTodoTitle' autofocus placeholder='Title'/>
     <input type='number' ng-model='newTodoPoints' placeholder='Points'/>
-    <button type='submit' ng-click='addTodo()' class='btn btn-primary'>Add ToDo</button>
+    <button type='submit' ng-click='create()' class='btn btn-primary'>Create ToDo</button>
   </div>
 </body>
 </html>
