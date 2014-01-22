@@ -22,7 +22,7 @@
     <ul ng-repeat='(id, todo) in todos'>
       <li class='completed-{{todo.completed}}'>
         <label>
-          <input type='checkbox' ng-checked="todo.completed">
+          <input type='checkbox' ng-model="todo.completed" ng-change="todos.$save(id)">
           {{todo.title}} ({{todo.points}}pts)
         </label>
         </input>
