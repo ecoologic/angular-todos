@@ -24,11 +24,12 @@
         <input type='checkbox' ng-model="todo.completed" ng-change="todos.$save(id)">
         {{todo.title}} ({{todo.points}}pts)
       </label>
+      <button type='button' class='close' aria-hidden='true' ng-click='todos.$remove(id)'>&times;</button>
     </li>
   </ul>
   <input type='text' ng-model='newTodoTitle' autofocus placeholder='Title'/>
   <input type='number' ng-model='newTodoPoints' placeholder='Points'/>
   <button type='submit' ng-click='create()' class='btn btn-primary'>Create ToDo</button>
-  <h2>Your score is {{points}} for {{completed}} out of {{total}}</h2>
+  <h2>Your score is {{points}} for {{completed}} out of {{total}} tasks</h2>
 </body>
 </html>
