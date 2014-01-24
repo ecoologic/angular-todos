@@ -30,6 +30,7 @@
   <input type='text' ng-model='newTodoTitle' autofocus placeholder='Title'/>
   <input type='number' ng-model='newTodoPoints' placeholder='Points'/>
   <button type='submit' ng-click='create()' class='btn btn-primary'>Create ToDo</button>
-  <h2>Your score is {{points}} for {{completed}} out of {{total}} tasks</h2>
+  <h2 ng-show='completed'>Your score is {{points}} for {{completed}} out of {{total}} tasks</h2>
+  <h2 ng-hide='completed'>You haven't completed any task yet - BOOOOHH!</h2>
 </body>
 </html>
