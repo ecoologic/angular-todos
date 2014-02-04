@@ -1,9 +1,7 @@
 'use strict';
 
-var mainApp = angular.module('mainApp', ['firebase']);
-
 // app
-var mainApp = angular.module('mainApp', ['firebase', 'fireFilters']);
+var mainApp = angular.module('mainApp', ['firebase']);
 
 // controllers
 function TodosCtrl($scope, $firebase) {
