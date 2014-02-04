@@ -1,3 +1,6 @@
+html body {
+  background-color: #cfd;
+}
 
 .completed label {
   text-decoration: line-through;
