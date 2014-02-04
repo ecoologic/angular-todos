@@ -2,22 +2,28 @@
 
 var mainApp = angular.module('mainApp', ['firebase']);
 
+// app
+var mainApp = angular.module('mainApp', ['firebase', 'fireFilters']);
+
+// controllers
 function TodosCtrl($scope, $firebase) {
-  var fireRef = new Firebase('https://ecoologic-todos.firebaseio.com/');
-  $scope.todos = $firebase(fireRef);
+  var fireRef    = new Firebase('https://ecoologic-todos.firebaseio.com/');
+  $scope.todos   = $firebase(fireRef);
+  $scope.newTodo = { points: 0 };
 
   $scope.create = function () {
     $scope.todos.$add({
-      title: $scope.newTodoTitle,
-      points: $scope.newTodoPoints,
+      title:     $scope.newTodo.title,
+      points:    $scope.newTodo.points,
       completed: false
     });
-    $scope.newTodoTitle = '';
+    $scope.newTodo.title = '';
   };
 
   $scope.todos.$on('change', function () {
     var points = 0;
     var completed = 0;
+
     $scope.todos.$getIndex().forEach(function (index) {
       var todo = $scope.todos[index];
       if(todo.completed) {
@@ -25,8 +31,9 @@ function TodosCtrl($scope, $firebase) {
         completed += 1;
       };
     });
-    $scope.points = points;
+
+    $scope.points    = points;
     $scope.completed = completed;
-    $scope.total = $scope.todos.$getIndex().length;
+    $scope.total     = $scope.todos.$getIndex().length;
   });
 };
