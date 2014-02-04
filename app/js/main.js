@@ -1,6 +1,17 @@
 'use strict';
 
-var mainApp = angular.module('mainApp', ['firebase']);
+// filters
+angular.module('fireFilters', []).filter('fireOrderBy', function() {
+  return function(resources, attribute) {
+    var ids = resources.$getIndex();
+    if(ids.length) {
+      var collection = _.map(ids, function (id) { return resources[id]; });
+      return _.sortBy(collection, function (item) { return item[attribute]; });
+    } else {
+      return resources;
+    }
+  };
+});
 
 // app
 var mainApp = angular.module('mainApp', ['firebase', 'fireFilters']);
