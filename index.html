@@ -21,6 +21,8 @@
 
 </head>
 <body ng-app='mainApp' ng-controller='TodosCtrl' class='container'>
+
+  <!-- todo list -->
   <ul ng-repeat='(id, todo) in todos'>
     <li ng-class='{completed: todo.completed}'>
       <label>
@@ -31,14 +33,23 @@
     </li>
   </ul>
 
-  <form ng-submit='create()' novalidate>
-    <input type='text' ng-model='newTodo.title' autofocus placeholder='Title'/>
-    <input type='number' ng-model='newTodo.points' placeholder='Points' min='0' max='10' step='1'/>
-    <button class='btn btn-primary'>Create ToDo</button>
+
+  <!-- new todo form -->
+  <form name='newTodoForm' ng-submit='create()' ng-enabled='newTodoForm.$valid'>
+    <input type='text' ng-model='newTodo.title' autofocus placeholder='Title' name='title' required/>
+    <span ng-show='newTodoForm.title.$dirty && newTodoForm.title.$error.required'>Title is required</span>
+
+    <input type='number' ng-model='newTodo.points' placeholder='Points' min='0' max='10' step='1' name='points' required/>
+    <span ng-show='newTodoForm.points.$dirty && (newTodoForm.points.$error.min || newTodoForm.points.$error.max || newTodoForm.points.$error.required)' class='validation-message'>Points must be between 0 and 10</span>
+
+    <button class='btn btn-primary' ng-disabled='newTodoForm.$invalid'>Create ToDo</button>
   </form>
 
+
+  <!-- totals -->
   <h2 ng-show='completed'>Your score is {{points}} for {{completed}} out of {{total}} tasks</h2>
   <h2 ng-hide='completed'>You haven't completed any task yet - BOOOOHH!</h2>
+
 
 </body>
 </html>

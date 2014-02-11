@@ -1,5 +1,5 @@
 html body {
-  background-color: #cfd;
+  background-color: #bed;
 }
 
 .completed label {
@@ -7,6 +7,11 @@ html body {
   color: gray;
 }
 
-.ng-invalid {
+form .ng-invalid {
   border: 1px solid red;
+}
+
+form span {
+  color: red;
+  font-style: italic;
 }
