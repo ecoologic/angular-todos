@@ -4,7 +4,7 @@
 var mainApp = angular.module('mainApp', ['firebase']);
 
 // controllers
-function TodosCtrl($scope, $firebase) {
+mainApp.controller('TodosCtrl', function($scope, $firebase) {
   var fireRef    = new Firebase('https://ecoologic-todos.firebaseio.com/');
   $scope.todos   = $firebase(fireRef);
   $scope.newTodo = { points: 0 };
@@ -35,4 +35,4 @@ function TodosCtrl($scope, $firebase) {
     $scope.completed = completed;
     $scope.total     = $scope.todos.$getIndex().length;
   });
-};
+});
