@@ -2,16 +2,7 @@ html body {
   background-color: #bed;
 }
 
-.completed label {
+.task .completed {
   text-decoration: line-through;
   color: gray;
-}
-
-form .ng-invalid {
-  border: 1px solid red;
-}
-
-form span {
-  color: red;
-  font-style: italic;
 }

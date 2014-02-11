@@ -16,6 +16,7 @@ function TodosCtrl($scope, $firebase) {
       completed: false
     });
     $scope.newTodo.title = '';
+    $scope.newTodoForm.$setPristine(true);
   };
 
   $scope.todos.$on('change', function () {
