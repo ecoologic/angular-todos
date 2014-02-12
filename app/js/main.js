@@ -1,23 +1,10 @@
 'use strict';
 
-// filters
-angular.module('fireFilters', []).filter('fireOrderBy', function() {
-  return function(resources, attribute) {
-    var ids = resources.$getIndex();
-    if(ids.length) {
-      var collection = _.map(ids, function (id) { return resources[id]; });
-      return _.sortBy(collection, function (item) { return item[attribute]; });
-    } else {
-      return resources;
-    }
-  };
-});
-
 // app
-var mainApp = angular.module('mainApp', ['firebase', 'fireFilters']);
+var mainApp = angular.module('mainApp', ['firebase']);
 
 // controllers
-function TodosCtrl($scope, $firebase) {
+mainApp.controller('TodosCtrl', function($scope, $firebase) {
   var fireRef    = new Firebase('https://ecoologic-todos.firebaseio.com/');
   $scope.todos   = $firebase(fireRef);
   $scope.newTodo = { points: 0 };
@@ -29,6 +16,7 @@ function TodosCtrl($scope, $firebase) {
       completed: false
     });
     $scope.newTodo.title = '';
+    $scope.newTodoForm.$setPristine(true);
   };
 
   $scope.todos.$on('change', function () {
@@ -47,4 +35,4 @@ function TodosCtrl($scope, $firebase) {
     $scope.completed = completed;
     $scope.total     = $scope.todos.$getIndex().length;
   });
-};
+});

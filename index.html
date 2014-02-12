@@ -22,24 +22,73 @@
 </head>
 <body ng-app='mainApp' ng-controller='TodosCtrl' class='container'>
 
-  <ul ng-repeat='(id, todo) in todos | fireOrderBy: "title"'>
-    <li ng-class='{completed: todo.completed}'>
-      <label>
-        <input type='checkbox' ng-model="todo.completed" ng-change="todos.$save(id)">
-        {{todo.title}} ({{todo.points}} points)
-      </label>
-      <button type='button' class='close' aria-hidden='true' ng-click='todos.$remove(id)'>&times;</button>
-    </li>
-  </ul>
 
-  <form ng-submit='create()' novalidate>
-    <input type='text' ng-model='newTodo.title' autofocus placeholder='Title'/>
-    <input type='number' ng-model='newTodo.points' placeholder='Points' min='0' max='10' step='1'/>
-    <button class='btn btn-primary'>Create ToDo</button>
+  <!--======================================================================-->
+  <!-- totals -->
+  <h2 ng-show='completed'>
+    Completed: {{completed}} / {{total}}
+    Score: {{points}}
+  </h2>
+  <h2 ng-hide='completed'>Do!</h2>
+
+
+  <!--======================================================================-->
+  <!-- todo list -->
+  <table class='tasks table table-hover'>
+    <tr ng-class='{completed: todo.completed}'
+        ng-repeat='(id, todo) in todos'>
+      <td>
+        <input type='checkbox' ng-model="todo.completed"
+               ng-change="todos.$save(id)">
+      </td>
+      <td class='title'>{{todo.title}}</td>
+      <td>{{todo.points}}</td>
+      <td>
+        <button type='button' class='close' aria-hidden='true'
+                ng-click='todos.$remove(id)'>
+          &times;
+        </button>
+      </td>
+    </tr>
+  </table>
+
+
+  <!--======================================================================-->
+  <!-- new todo form -->
+  <form name='newTodoForm' ng-submit='create()' ng-enabled='newTodoForm.$valid'>
+    <div class='form-group' has-feedback
+         ng-class='{"has-error": newTodoForm.title.$dirty &&
+                                 newTodoForm.title.$invalid}'>
+      <label for='title' class='control-label'>
+        Title
+        <span ng-show='newTodoForm.title.$dirty &&
+                       newTodoForm.title.$error.required'>
+          Is required
+        </span>
+      </label>
+      <input type='text' name='title' placeholder='Title' autofocus required
+             ng-model='newTodo.title' class='form-control'/>
+    </div>
+
+    <div class='form-group' has-feedback
+         ng-class='{"has-error": newTodoForm.points.$dirty &&
+                                 newTodoForm.points.$invalid}'>
+      <label for='points' class='control-label'>
+        Points
+        <span ng-show='newTodoForm.points.$dirty && newTodoForm.points.$invalid'>
+          Must be between 0 and 10
+        </span>
+      </label>
+      <input type='number' name='points' placeholder='Points' class='form-control'
+             ng-model='newTodo.points' min='0' max='10' step='1' required
+             ng-class='{"has-error": newTodoForm.points.$invalid}'/>
+    </div>
+
+    <button class='btn btn-primary' ng-disabled='newTodoForm.$invalid'>
+      Create ToDo
+    </button>
   </form>
 
-  <h2 ng-show='completed'>Your score is {{points}} for {{completed}} out of {{total}} tasks</h2>
-  <h2 ng-hide='completed'>You haven't completed any task yet - BOOOOHH!</h2>
 
 </body>
 </html>

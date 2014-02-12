@@ -1,8 +1,11 @@
 html body {
-  background-color: #cfd;
+  background-color: #bed;
 }
 
-.completed label {
-  text-decoration: line-through;
-  color: gray;
+table.tasks tr td.title {
+  width: 95%;
+  overflow-y: scroll;
+  font-weight: bolder;
 }
+
+
