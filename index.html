@@ -24,15 +24,24 @@
 
 
   <!--======================================================================-->
+  <!-- totals -->
+  <h2 ng-show='completed'>
+    Completed: {{completed}} / {{total}}
+    Score: {{points}}
+  </h2>
+  <h2 ng-hide='completed'>Do!</h2>
+
+
+  <!--======================================================================-->
   <!-- todo list -->
-  <table class='table table-bordered table-hover'>
-    <tr class='task' ng-class='{completed: todo.completed}'
+  <table class='tasks table table-hover'>
+    <tr ng-class='{completed: todo.completed}'
         ng-repeat='(id, todo) in todos'>
       <td>
         <input type='checkbox' ng-model="todo.completed"
                ng-change="todos.$save(id)">
       </td>
-      <td>{{todo.title}}</td>
+      <td class='title'>{{todo.title}}</td>
       <td>{{todo.points}}</td>
       <td>
         <button type='button' class='close' aria-hidden='true'
@@ -42,6 +51,7 @@
       </td>
     </tr>
   </table>
+
 
   <!--======================================================================-->
   <!-- new todo form -->
@@ -78,16 +88,6 @@
       Create ToDo
     </button>
   </form>
-
-
-  <!--======================================================================-->
-  <!-- totals -->
-  <h2 ng-show='completed'>
-    Your score is {{points}} for {{completed}} out of {{total}} tasks
-  </h2>
-  <h2 ng-hide='completed'>
-    You haven't completed any task yet - BOOOOHH!
-  </h2>
 
 
 </body>

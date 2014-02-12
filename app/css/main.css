@@ -1,3 +1,11 @@
 html body {
   background-color: #bed;
 }
+
+table.tasks tr td.title {
+  width: 95%;
+  overflow-y: scroll;
+  font-weight: bolder;
+}
+
+
