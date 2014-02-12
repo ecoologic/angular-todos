@@ -8,4 +8,6 @@ table.tasks tr td.title {
   font-weight: bolder;
 }
 
-
+.test {
+  border: 1px solid green;
+}
