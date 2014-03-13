@@ -1,12 +1,19 @@
 'use strict';
 
+// config
+var config = {};
+config.firebaseUrl = 'https://ecoologic-todos.firebaseio.com/';
+
 // controllers
 var controllers = {};
 
 controllers.TodosCtrl = function($scope, $firebase) {
-  var fireRef    = new Firebase('https://ecoologic-todos.firebaseio.com/');
-  $scope.todos   = $firebase(fireRef);
-  $scope.newTodo = { points: 0 };
+  var init = function () {
+    var fireRef    = new Firebase(config.firebaseUrl);
+    $scope.todos   = $firebase(fireRef);
+    $scope.newTodo = { points: 0 };
+  };
+  init();
 
   $scope.create = function () {
     $scope.todos.$add({
@@ -41,7 +48,8 @@ var dependencies = [
   'xeditable'        // http://vitalets.github.io/angular-xeditable/
 ];
 var app = angular.module('app', dependencies)
-                 .controller(controllers);
+                 .controller(controllers)
+                 .constant(config);
 
 app.run(function (editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
