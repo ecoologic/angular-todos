@@ -13,6 +13,9 @@
   <script src='https://cdn.firebase.com/v0/firebase.js' type='text/javascript'></script>
   <script src='https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.js' type='text/javascript'></script>
 
+  <script src='vendor/xeditable/0.18/js/xeditable.js' type='text/javascript'></script>
+  <link href='vendor/xeditable/0.18/css/xeditable.css' rel='stylesheet'/>
+
   <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js' type='text/javascript'></script>
 
   <link href='app/css/main.css' rel='stylesheet'/>
@@ -40,7 +43,7 @@
         <input type='checkbox' ng-model="todo.completed"
                ng-change="todos.$save(id)">
       </td>
-      <td class='title'>{{todo.title}}</td>
+      <td class='title' editable-text='todo.title'>{{todo.title}}</td>
       <td>{{todo.points}}</td>
       <td>
         <button type='button' class='close' aria-hidden='true'
