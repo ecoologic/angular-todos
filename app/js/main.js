@@ -42,15 +42,41 @@ controllers.TodosCtrl = function($scope, $firebase) {
   });
 };
 
+// filters
+var filters = {};
+
+filters.sortListBy = function () {
+  return function (list, sortAttribute) {
+    var result = {};
+    var entries = _.select(list, function (item) {
+      return angular.isObject(item);
+    });
+    _.each(entries, function (entry, id) {
+      result[id] = entry;
+    });
+    result = _.sortBy(result, function (item) {
+      return item[sortAttribute];
+    });
+    return result;
+  };
+};
+
 // app
 var dependencies = [
   'firebase',        // https://www.firebase.com/quickstart/angularjs.html
   'xeditable'        // http://vitalets.github.io/angular-xeditable/
 ];
 var app = angular.module('app', dependencies)
+                 .constant(config)
                  .controller(controllers)
-                 .constant(config);
+                 .filter(filters);
 
 app.run(function (editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
+
+// Conventions
+// list:      itereteable object
+// entry:     a firebase row of data (without the firebase id)
+// item:      any iteration of a list (in particular a firebase pair id: entry)
+// attribute: a key of an entry

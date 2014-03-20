@@ -38,7 +38,7 @@
   <!-- todo list -->
   <table class='tasks table table-hover'>
     <tr ng-class='{completed: todo.completed}'
-        ng-repeat='(id, todo) in todos'>
+        ng-repeat='(id, todo) in todos | sortListBy: "title"'>
       <td>
         <input type='checkbox' ng-model="todo.completed"
                ng-change="todos.$save(id)">
