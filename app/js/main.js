@@ -2,18 +2,20 @@
 
 // config
 var config = {};
-config.firebaseUrl = 'https://ecoologic-todos.firebaseio.com/';
+config.firebaseBaseUrl = 'https://ecoologic-todos.firebaseio.com/';
+config.firebaseUrls    = {
+  todos:                 config.firebaseBaseUrl + 'todos'
+};
 
 // controllers
 var controllers = {};
 
 controllers.TodosCtrl = function($scope, $firebase) {
-  var init = function () {
-    var fireRef    = new Firebase(config.firebaseUrl);
-    $scope.todos   = $firebase(fireRef);
+  var initialize = function () {
+    $scope.todos   = $firebase(new Firebase(config.firebaseUrls.todos));
     $scope.newTodo = { points: 0 };
   };
-  init();
+  initialize();
 
   $scope.create = function () {
     $scope.todos.$add({
