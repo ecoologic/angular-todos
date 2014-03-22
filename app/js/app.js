@@ -45,8 +45,7 @@ controllers.TodosCtrl = function($scope, Store) {
   });
 
   $scope.validateRange = function (newValue, from, to) {
-    var n = parseInt(newValue);
-    if (n < from || n > to) {
+    if (newValue < from || newValue > to) {
       return "Value should be between " + from + " and " + to;
     };
   };
