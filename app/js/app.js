@@ -4,16 +4,25 @@
 // Config
 var config = {};
 
-config.firebaseBaseUrl = 'https://ecoologic-todos.firebaseio.com/';
-config.firebaseUrls = { todos: config.firebaseBaseUrl + 'todos' };
+///////////////////////////////////////////////////////////////////////////////
+// Services
+var services = {};
+
+services.Store = function ($firebase) {
+  var firebaseUrl = 'https://ecoologic-todos.firebaseio.com/';
+  return {
+    todos: $firebase(new Firebase(firebaseUrl + 'todos')),
+    tasks: $firebase(new Firebase(firebaseUrl + 'tasks'))
+  };
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 // Controllers
 var controllers = {};
 
-controllers.TodosCtrl = function($scope, $firebase) {
+controllers.TodosCtrl = function($scope, Store) {
   var initialize = function () {
-    $scope.todos   = $firebase(new Firebase(config.firebaseUrls.todos));
+    $scope.todos   = Store.todos;
     $scope.newTodo = { points: 0 };
   };
   initialize();
@@ -81,7 +90,7 @@ var run = function (editableOptions) {
 ///////////////////////////////////////////////////////////////////////////////
 // Dependencies
 var dependencies = [
-  'firebase',        // https://www.firebase.com/quickstart/angularjs.html
+  'firebase',        // https://www.firebase.com/docs/angular/reference.html
   'xeditable'        // http://vitalets.github.io/angular-xeditable/
 ];
 
@@ -89,6 +98,7 @@ var dependencies = [
 // App
 var app = angular.module('app', dependencies)
                  .constant(config)
+                 .service(services)
                  .controller(controllers)
                  .filter(filters)
                  .run(run);
