@@ -1,11 +1,14 @@
 'use strict';
 
-// config
+///////////////////////////////////////////////////////////////////////////////
+// Config
 var config = {};
+
 config.firebaseBaseUrl = 'https://ecoologic-todos.firebaseio.com/';
 config.firebaseUrls = { todos: config.firebaseBaseUrl + 'todos' };
 
-// controllers
+///////////////////////////////////////////////////////////////////////////////
+// Controllers
 var controllers = {};
 
 controllers.TodosCtrl = function($scope, $firebase) {
@@ -59,16 +62,21 @@ filters.sortListBy = function () {
   };
 };
 
-// run
+///////////////////////////////////////////////////////////////////////////////
+// Run
 var run = function (editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 };
 
-// app
+///////////////////////////////////////////////////////////////////////////////
+// Dependencies
 var dependencies = [
   'firebase',        // https://www.firebase.com/quickstart/angularjs.html
   'xeditable'        // http://vitalets.github.io/angular-xeditable/
 ];
+
+///////////////////////////////////////////////////////////////////////////////
+// App
 var app = angular.module('app', dependencies)
                  .constant(config)
                  .controller(controllers)
