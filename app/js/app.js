@@ -1,4 +1,5 @@
 'use strict';
+
 ///////////////////////////////////////////////////////////////////////////////
 // Controllers
 var controllers = {};
@@ -43,12 +44,6 @@ controllers.TodosCtrl = function($scope, Store) {
     $scope.completed = completed;
     $scope.total     = $scope.todos.$getIndex().length;
   });
-
-  $scope.validateRange = function (newValue, from, to) {
-    if (newValue < from || newValue > to) {
-      return "Value should be between " + from + " and " + to;
-    };
-  };
 };
 
 ///////////////////////////////////////////////////////////////////////////////

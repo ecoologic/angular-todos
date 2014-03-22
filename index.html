@@ -46,8 +46,8 @@
       <td class='title' editable-text='todo.title' onaftersave='update(id)'>
         {{todo.title}}
       </td>
-      <td editable-text='todo.points' e-type='number'
-          onbeforesave='validateRange($data, 0, 10)' onaftersave='update(id)'>
+      <td editable-text='todo.points' onaftersave='update(id)'
+          e-type='number' e-min='0' e-max='10' e-step='1' e-required>
         {{todo.points}}
       </td>
       <td>
