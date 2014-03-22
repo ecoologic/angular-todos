@@ -43,7 +43,9 @@
         <input type='checkbox' ng-model="todo.completed"
                ng-change="update(id)">
       </td>
-      <td class='title editable-text'>{{todo.title}}</td>
+      <td class='title' editable-text='todo.title' onaftersave='update(id)'>
+        {{todo.title}}
+      </td>
       <td>{{todo.points}}</td>
       <td>
         <button type='button' class='close' aria-hidden='true'
