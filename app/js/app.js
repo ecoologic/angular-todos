@@ -18,7 +18,7 @@ controllers.TodosCtrl = function($scope, $firebase) {
   };
   initialize();
 
-  $scope.remove = function (id) {
+  $scope.delete = function (id) {
     $scope.todos.$remove(id);
   };
 
