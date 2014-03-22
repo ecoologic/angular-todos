@@ -23,6 +23,7 @@ controllers.TodosCtrl = function($scope, $firebase) {
   };
 
   $scope.update = function (id) {
+    $scope.todos[id].points = parseInt($scope.todos[id].points);
     $scope.todos.$save(id);
   };
 
@@ -51,10 +52,19 @@ controllers.TodosCtrl = function($scope, $firebase) {
     $scope.completed = completed;
     $scope.total     = $scope.todos.$getIndex().length;
   });
+
+  $scope.validateRange = function (newValue, from, to) {
+    var n = parseInt(newValue);
+    if (n < from || n > to) {
+      return "Value should be between " + from + " and " + to;
+    };
+  };
 };
 
-// filters
+///////////////////////////////////////////////////////////////////////////////
+// Filters
 var filters = {};
+
 filters.sortListBy = function () {
   return function (list, sortAttribute) {
     console.log(list, sortAttribute);

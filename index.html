@@ -46,7 +46,10 @@
       <td class='title' editable-text='todo.title' onaftersave='update(id)'>
         {{todo.title}}
       </td>
-      <td>{{todo.points}}</td>
+      <td editable-text='todo.points'
+          onbeforesave='validateRange($data, 0, 10)' onaftersave='update(id)'>
+        {{todo.points}}
+      </td>
       <td>
         <button type='button' class='close' aria-hidden='true'
                 ng-click='remove(id)'>
