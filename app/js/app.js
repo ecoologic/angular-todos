@@ -11,13 +11,9 @@ controllers.TodosCtrl = function($scope, Store) {
   };
   initialize();
 
-  $scope.delete = function (id) {
-    $scope.todos.$remove(id);
-  };
+  $scope.delete = function (id) { $scope.todos.$remove(id); };
 
-  $scope.update = function (id) {
-    $scope.todos.$save(id);
-  };
+  $scope.update = function (id) { $scope.todos.$save(id); };
 
   $scope.create = function () {
     $scope.todos.$add({
@@ -51,11 +47,25 @@ controllers.TodosCtrl = function($scope, Store) {
 var services = {};
 
 services.Store = function ($firebase) {
-  var firebaseUrl = 'https://ecoologic-todos.firebaseio.com/';
-  return {
-    todos: $firebase(new Firebase(firebaseUrl + 'todos')),
-    tasks: $firebase(new Firebase(firebaseUrl + 'tasks'))
-  };
+  var firebaseUrl = 'https://ecoologic-todos.firebaseio.com/',
+      resourceNames = ['todos', 'tasks'],
+      result = {};
+
+  _.each(resourceNames, function (resourceName) {
+    // firebase resource
+    var resource = $firebase(new Firebase(firebaseUrl + resourceName));
+
+    // get only entries (no ids or other methods)
+    resource.$entries = function () {
+      return _.map(resource.$getIndex(), function (id) {
+        return resource[id];
+      });
+    };
+
+    result[resourceName] = resource;
+  });
+
+  return result;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
