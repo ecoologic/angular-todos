@@ -1,21 +1,4 @@
 'use strict';
-
-///////////////////////////////////////////////////////////////////////////////
-// Config
-var config = {};
-
-///////////////////////////////////////////////////////////////////////////////
-// Services
-var services = {};
-
-services.Store = function ($firebase) {
-  var firebaseUrl = 'https://ecoologic-todos.firebaseio.com/';
-  return {
-    todos: $firebase(new Firebase(firebaseUrl + 'todos')),
-    tasks: $firebase(new Firebase(firebaseUrl + 'tasks'))
-  };
-};
-
 ///////////////////////////////////////////////////////////////////////////////
 // Controllers
 var controllers = {};
@@ -70,6 +53,18 @@ controllers.TodosCtrl = function($scope, Store) {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
+// Services
+var services = {};
+
+services.Store = function ($firebase) {
+  var firebaseUrl = 'https://ecoologic-todos.firebaseio.com/';
+  return {
+    todos: $firebase(new Firebase(firebaseUrl + 'todos')),
+    tasks: $firebase(new Firebase(firebaseUrl + 'tasks'))
+  };
+};
+
+///////////////////////////////////////////////////////////////////////////////
 // Filters
 var filters = {};
 
@@ -79,6 +74,10 @@ filters.sortListBy = function () {
     return list;
   };
 };
+
+///////////////////////////////////////////////////////////////////////////////
+// Config
+var config = {};
 
 ///////////////////////////////////////////////////////////////////////////////
 // Run
@@ -96,8 +95,8 @@ var dependencies = [
 ///////////////////////////////////////////////////////////////////////////////
 // App
 var app = angular.module('app', dependencies)
-                 .constant(config)
-                 .service(services)
                  .controller(controllers)
+                 .service(services)
                  .filter(filters)
+                 .constant(config)
                  .run(run);
