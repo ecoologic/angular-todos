@@ -32,7 +32,6 @@ controllers.TodosCtrl = function($scope, Store) {
   };
 
   $scope.update = function (id) {
-    $scope.todos[id].points = parseInt($scope.todos[id].points);
     $scope.todos.$save(id);
   };
 
