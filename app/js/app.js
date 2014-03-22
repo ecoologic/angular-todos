@@ -15,6 +15,14 @@ controllers.TodosCtrl = function($scope, $firebase) {
   };
   initialize();
 
+  $scope.remove = function (id) {
+    $scope.todos.$remove(id);
+  };
+
+  $scope.update = function (id) {
+    $scope.todos.$save(id);
+  };
+
   $scope.create = function () {
     $scope.todos.$add({
       title:     $scope.newTodo.title,
@@ -64,75 +72,5 @@ var dependencies = [
 var app = angular.module('app', dependencies)
                  .constant(config)
                  .controller(controllers)
-                 .filter(filters);
-                 // .run(run)
-
-// Conventions
-// list:      itereteable object
-// entry:     a firebase row of data (without the firebase id)
-// item:      any iteration of a list (in particular a firebase pair id: entry)
-// attribute: a key of an entry
-
-// https://github.com/firebase
-
-// // http://stackoverflow.com/questions/20109656/how-do-you-sort-an-angularfire-collection
-// if (!angular.isObject(list)) return list;
-
-// var array = [];
-// for(var objectKey in list) {
-//   array.push(list[objectKey]);
-// }
-
-// function compare(a,b) {
-//   if (a[sortAttribute] < b[sortAttribute])
-//     return -1;
-//   if (a[sortAttribute] > b[sortAttribute])
-//     return 1;
-//   return 0;
-// }
-
-// array.sort(compare);
-// return array;
-
-
-//     var clonedList = _.cloneDeep(list),
-//         unsortedItems = {},
-//         ids = clonedList.$getIndex();
-
-//     _.each(ids, function (id) {
-//       if (clonedList[id] !== undefined) {
-//         unsortedItems[id] = _.cloneDeep(clonedList[id]);
-//       }
-//       delete clonedList[id];
-//     });
-// console.log('1111', clonedList, unsortedItems);
-
-//     var sortedEntries = _.sortBy(unsortedItems, function (item) {
-// console.log('>>>>', item)
-//       return item[sortAttribute];
-//     });
-
-//     _.each(sortedEntries, function (entity) {
-
-//       clonedList[_.findKey(unsortedItems, entity)] = entity;
-//     });
-// console.log('2222', clonedList);
-
-
-// filters.sortListBy = function () {
-//   return function (list, sortAttribute) {
-//     var result = {}, entries = {}, nonObjects = {};
-
-//     _.each(list, function (entry, id) {
-//       if (angular.isObject(entry)) {
-//         result[id] = entry;
-//       } else {
-//         nonObjects.push(entry);
-//       };
-//     });
-//     result = _.sortBy(result, function (item) {
-//       return item[sortAttribute];
-//     });
-//     return result;
-//   };
-// };
+                 .filter(filters)
+                 .run(run);
