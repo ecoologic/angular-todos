@@ -36,9 +36,10 @@
 
   <!--======================================================================-->
   <!-- todo list -->
-  <table class='tasks table table-hover'>
+  <table class='table table-hover'>
     <tr ng-repeat='(id, todo) in todos'
-        ng-class='{ completed: todo.completed }'>
+        ng-class='{ completed: todo.completed }'
+        ng-click='setActiveTodo(id)'>
       <td><span ng-show='activeTodoId === id'>&raquo;</span></td>
       <td>
         <input type='checkbox' ng-model="todo.completed"

@@ -15,18 +15,6 @@ controllers.TodosCtrl = function($scope, Store) {
   };
   initialize();
 
-  $scope.create = function () {
-    $scope.todos.$child(
-      encodeURIComponent($scope.newTodo.title)
-    ).$set({
-      title:     $scope.newTodo.title,
-      points:    $scope.newTodo.points,
-      completed: false
-    });
-    $scope.newTodo.title = '';
-    $scope.newTodoForm.$setPristine(true);
-  };
-
   $scope.todos.$on('change', function () {
     var ids = $scope.todos.$getIndex(),
         points = 0, completed = 0;
@@ -45,9 +33,27 @@ controllers.TodosCtrl = function($scope, Store) {
     $scope.total     = $scope.todos.$getIndex().length;
   });
 
+  $scope.setActiveTodo = function (id) { $scope.activeTodoId = id; };
+
+  $scope.activeTodo = function () {
+    return Store.resource('todos/' + $scope.activeTodoId);
+  };
+
   $scope.delete = function (id) { $scope.todos.$remove(id); };
 
   $scope.update = function (id) { $scope.todos.$save(id); };
+
+  $scope.create = function () {
+    $scope.activeTodo().$child(
+      encodeURIComponent($scope.newTodo.title)
+    ).$set({
+      title:     $scope.newTodo.title,
+      points:    $scope.newTodo.points,
+      completed: false
+    });
+    $scope.newTodo.title = '';
+    $scope.newTodoForm.$setPristine(true);
+  };
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -55,13 +61,17 @@ controllers.TodosCtrl = function($scope, Store) {
 var services = {};
 
 services.Store = function ($firebase) {
-  var firebaseUrl = 'https://ecoologic-todos.firebaseio.com/',
+  var firebaseUrl = 'https://ecoologic-todos.firebaseio.com/test/',
       resourceNames = ['todos'],
       result = {};
 
+  result.resource = function (resourceName) {
+    return $firebase(new Firebase(firebaseUrl + resourceName));
+  };
+
   _.each(resourceNames, function (resourceName) {
     // firebase resource
-    var resource = $firebase(new Firebase(firebaseUrl + resourceName));
+    var resource = result.resource(resourceName);
 
     // get only entries (no ids or other methods)
     resource.$entries = function () {
