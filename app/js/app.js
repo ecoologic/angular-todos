@@ -26,10 +26,12 @@ controllers.TodosCtrl = function($scope, Store) {
   };
 
   $scope.todos.$on('change', function () {
-    var points = 0, completed = 0;
+    var ids = $scope.todos.$getIndex(),
+        points = 0, completed = 0;
+    if(ids.length) $scope.activeTodoId = $scope.activeTodoId || ids[0];
 
-    $scope.todos.$getIndex().forEach(function (index) {
-      var todo = $scope.todos[index];
+    ids.forEach(function (id) {
+      var todo = $scope.todos[id];
       if(todo.completed) {
         points += todo.points;
         completed++;
@@ -48,7 +50,7 @@ var services = {};
 
 services.Store = function ($firebase) {
   var firebaseUrl = 'https://ecoologic-todos.firebaseio.com/',
-      resourceNames = ['todos', 'tasks'],
+      resourceNames = ['todos'],
       result = {};
 
   _.each(resourceNames, function (resourceName) {
@@ -92,8 +94,10 @@ var run = function (editableOptions) {
 ///////////////////////////////////////////////////////////////////////////////
 // Dependencies
 var dependencies = [
-  'firebase',        // https://www.firebase.com/docs/angular/reference.html
-  'xeditable'        // http://vitalets.github.io/angular-xeditable/
+  'firebase',         // https://www.firebase.com/docs/angular/reference.html
+                      // https://www.firebase.com/docs/queries.html
+                      // https://www.firebase.com/docs/data-structure.html
+  'xeditable'         // http://vitalets.github.io/angular-xeditable/
 ];
 
 ///////////////////////////////////////////////////////////////////////////////
