@@ -4,16 +4,16 @@
 // Controllers
 var controllers = {};
 
+// TODO:
+// NewTodoCtrl (create)
+// Todo (update / delete)
+// Todos (index / totals)
 controllers.TodosCtrl = function($scope, Store) {
   var initialize = function () {
     $scope.todos   = Store.todos;
     $scope.newTodo = { points: 0 };
   };
   initialize();
-
-  $scope.delete = function (id) { $scope.todos.$remove(id); };
-
-  $scope.update = function (id) { $scope.todos.$save(id); };
 
   $scope.create = function () {
     $scope.todos.$child(
@@ -44,6 +44,10 @@ controllers.TodosCtrl = function($scope, Store) {
     $scope.completed = completed;
     $scope.total     = $scope.todos.$getIndex().length;
   });
+
+  $scope.delete = function (id) { $scope.todos.$remove(id); };
+
+  $scope.update = function (id) { $scope.todos.$save(id); };
 };
 
 ///////////////////////////////////////////////////////////////////////////////
