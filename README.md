@@ -4,9 +4,6 @@ Learning Angular and Firebase, at the same time
 
 ## Known issues
 
-#### Filtering the list fixed the xeditable display, but:
-
-* Delete one todo and they're all gone
-* Title changes are not persisted
-
-
+* filtering an object (currently filtering by initial title)
+* must show todos nested under parents
+* must provide some sort of main todo
