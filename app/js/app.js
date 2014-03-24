@@ -16,7 +16,9 @@ controllers.TodosCtrl = function($scope, Store) {
   $scope.update = function (id) { $scope.todos.$save(id); };
 
   $scope.create = function () {
-    $scope.todos.$add({
+    $scope.todos.$child(
+      encodeURIComponent($scope.newTodo.title)
+    ).$set({
       title:     $scope.newTodo.title,
       points:    $scope.newTodo.points,
       completed: false
