@@ -36,7 +36,7 @@ controllers.TodosCtrl = function($scope, Store) {
   $scope.setActiveTodo = function (id) { $scope.activeTodoId = id; };
 
   $scope.activeTodo = function () {
-    return Store.resource('todos/' + $scope.activeTodoId);
+    return Store.todos.$resource($scope.activeTodoId);
   };
 
   $scope.delete = function (id) { $scope.todos.$remove(id); };
@@ -72,6 +72,7 @@ services.Store = function ($firebase) {
   _.each(resourceNames, function (resourceName) {
     // firebase resource
     var resource = result.resource(resourceName);
+    resource.$resource = function () { return result.resource(resourceName) };
 
     // get only entries (no ids or other methods)
     resource.$entries = function () {
