@@ -64,7 +64,10 @@ services.Store = function ($firebase) {
   _.each(resourceNames, function (resourceName) {
     // firebase resource
     var resource = result.resource(resourceName);
-    resource.$resource = function () { return result.resource(resourceName) };
+    resource.$resource = function (nesting) {
+      console.log(result.resource(resourceName + '/' + nesting));
+      return result.resource(resourceName + '/' + nesting);
+    };
 
     // get only entries (no ids or other methods)
     resource.$entries = function () {
