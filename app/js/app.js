@@ -1,13 +1,7 @@
 'use strict';
-
-///////////////////////////////////////////////////////////////////////////////
-// Controllers
+// Controllers ////////////////////////////////////////////////////////////////
 var controllers = {};
 
-// TODO:
-// NewTodoCtrl (create)
-// Todo (update / delete)
-// Todos (index / totals)
 controllers.TodosCtrl = function($scope, Store) {
   var initialize = function () {
     $scope.todos   = Store.todos;
@@ -55,9 +49,7 @@ controllers.TodosCtrl = function($scope, Store) {
     $scope.newTodoForm.$setPristine(true);
   };
 };
-
-///////////////////////////////////////////////////////////////////////////////
-// Services
+// Services ///////////////////////////////////////////////////////////////////
 var services = {};
 
 services.Store = function ($firebase) {
@@ -86,42 +78,19 @@ services.Store = function ($firebase) {
 
   return result;
 };
-
-///////////////////////////////////////////////////////////////////////////////
-// Filters
-var filters = {};
-
-filters.sortListBy = function () {
-  return function (list, sortAttribute) {
-    console.log(list, sortAttribute);
-    return list;
-  };
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// Config
-var config = {};
-
-///////////////////////////////////////////////////////////////////////////////
-// Run
+// Run ////////////////////////////////////////////////////////////////////////
 var run = function (editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 };
-
-///////////////////////////////////////////////////////////////////////////////
-// Dependencies
+// Dependencies ///////////////////////////////////////////////////////////////
 var dependencies = [
   'firebase',         // https://www.firebase.com/docs/angular/reference.html
                       // https://www.firebase.com/docs/queries.html
                       // https://www.firebase.com/docs/data-structure.html
   'xeditable'         // http://vitalets.github.io/angular-xeditable/
 ];
-
-///////////////////////////////////////////////////////////////////////////////
-// App
+// App ////////////////////////////////////////////////////////////////////////
 var app = angular.module('app', dependencies)
                  .controller(controllers)
                  .service(services)
-                 .filter(filters)
-                 .constant(config)
                  .run(run);
