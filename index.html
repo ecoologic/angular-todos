@@ -31,24 +31,24 @@
   <h2 ng-hide='completed'>Do!</h2>
   <!-- todo list ===========================================================-->
   <table class='table table-hover'>
-    <tr ng-repeat='(id, todo) in todos'
+    <tr ng-repeat='todo in todos | sortBy: "points"'
         ng-class='{ completed: todo.completed }'
-        ng-click='setActiveTodo(id)'>
-      <td><span ng-show='activeTodoId === id'>&raquo;</span></td>
+        ng-click='console.log("IDS  -  todo: ", todo.$id, "active: ", activeTodo.$id)'>
+      <td><span ng-show='activeTodo.$id === todo.$id'>&raquo;</span></td>
       <td>
         <input type='checkbox' ng-model="todo.completed"
-               ng-change="update(id)">
+               ng-change="update(todo.$id)">
       </td>
-      <td class='title' editable-text='todo.title' onaftersave='update(id)'>
+      <td class='title' editable-text='todo.title' onaftersave='update(todo.$id)'>
+        [{{todo.$id}}]
         {{todo.title}}
-      </td>
-      <td editable-text='todo.points' onaftersave='update(id)'
+      <td editable-text='todo.points' onaftersave='update(todo.$id)'
           e-type='number' e-min='0' e-max='10' e-step='1' e-required>
         {{todo.points}}
       </td>
       <td>
         <button type='button' class='close' aria-hidden='true'
-                ng-click='delete(id)'>
+                ng-click='delete(todo.$id)'>
           &times;
         </button>
       </td>
