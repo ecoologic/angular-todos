@@ -1,7 +1,5 @@
 'use strict';
-// Controllers ////////////////////////////////////////////////////////////////
-var controllers = {};
-
+var controllers = {}; /////////////////////////////////////////////////////////
 controllers.TodosCtrl = function($scope, Store) {
   var initialize = function () {
     $scope.todos = Store.todos;
@@ -43,9 +41,7 @@ controllers.TodosCtrl = function($scope, Store) {
     $scope.newTodoForm.$setPristine(true);
   };
 };
-// Services ///////////////////////////////////////////////////////////////////
-var services = {};
-
+var services = {}; ////////////////////////////////////////////////////////////
 services.Store = function ($firebase) {
   var firebaseUrl = 'https://ecoologic-todos.firebaseio.com/development/',
       resourceNames = ['todos'],
@@ -65,10 +61,7 @@ services.Store = function ($firebase) {
 
   return result;
 };
-
-// Filters ////////////////////////////////////////////////////////////////////
-var filters = {};
-
+var filters = {}; /////////////////////////////////////////////////////////////
 filters.sortBy = function () {
   return function (list, sortAttribute) {
     var ids = list.$getIndex(), result;
@@ -82,19 +75,16 @@ filters.sortBy = function () {
     return result || list;
   };
 };
-// Run ////////////////////////////////////////////////////////////////////////
-var run = function (editableOptions) {
+var run = function (editableOptions) { ////////////////////////////////////////
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 };
-// Dependencies ///////////////////////////////////////////////////////////////
-var dependencies = [
-  'firebase',         // https://www.firebase.com/docs/angular/reference.html
-                      // https://www.firebase.com/docs/queries.html
-                      // https://www.firebase.com/docs/data-structure.html
-  'xeditable'         // http://vitalets.github.io/angular-xeditable/
+var dependencies = [ //////////////////////////////////////////////////////////
+  'firebase',        // https://www.firebase.com/docs/angular/reference.html
+                     // https://www.firebase.com/docs/queries.html
+                     // https://www.firebase.com/docs/data-structure.html
+  'xeditable'        // http://vitalets.github.io/angular-xeditable/
 ];
-// App ////////////////////////////////////////////////////////////////////////
-var app = angular.module('app', dependencies)
+var app = angular.module('app', dependencies) /////////////////////////////////
                  .controller(controllers)
                  .service(services)
                  .filter(filters)
